@@ -1,16 +1,15 @@
-﻿@{
+﻿@model Contacts.Recorder.API.Models.ContactViewModel
+@{
     var isLoggedIn = Context.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application");
 }
-
-
-<body>
-    <h1>This is the entry page.</h1>
-    <div id="fillthis"></div>
-    <script type="text/javascript">
-        window.onload = function(){
-            myLibrary.BindDynamicComponent(
-                myLibrary.Hello({compiler:'The Compiler',framework:'Framework for react'}),
-                document.getElementById("fillthis"));
-        };
-    </script>
-</body>
+    <body>
+        <h1>Contacts</h1>
+        <div id="fillthis"></div>
+        <script type="text/javascript">
+            window.onload = function () {
+                myLibrary.BindDynamicComponent(
+                    myLibrary.Contact({ }),
+                    document.getElementById("fillthis"));
+            };
+        </script>
+    </body>

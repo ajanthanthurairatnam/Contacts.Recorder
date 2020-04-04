@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "m77TX9CGnxjEmViLgM/5c12eDbZdEMZiAwy1B/Zah96Nrc1Uyn09qjJ2bNls/dHzddXVn1f9ibh/xNWXt7dCMg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ajant\\source\\repos\\Contacts.Recorder\\Contacts.Recorder.Storage\\Contacts.Recorder.Storage.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ajant\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\ajant\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
