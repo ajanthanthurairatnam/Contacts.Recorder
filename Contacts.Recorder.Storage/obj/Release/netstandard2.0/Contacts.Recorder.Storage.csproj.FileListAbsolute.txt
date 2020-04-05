@@ -10,3 +10,7 @@ C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\obj\Rele
 C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\obj\Release\netstandard2.0\Contacts.Recorder.Storage.csproj.CopyComplete
 C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\obj\Release\netstandard2.0\Contacts.Recorder.Storage.dll
 C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\obj\Release\netstandard2.0\Contacts.Recorder.Storage.pdb
+C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\bin\Release\netstandard2.0\Microsoft.Azure.Cosmos.ServiceInterop.dll
+C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\bin\Release\netstandard2.0\Cosmos.CRTCompat.dll
+C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\bin\Release\netstandard2.0\Contacts.Recorder.MongoFramework.dll
+C:\Users\ajant\source\repos\Contacts.Recorder\Contacts.Recorder.Storage\bin\Release\netstandard2.0\Contacts.Recorder.MongoFramework.pdb
