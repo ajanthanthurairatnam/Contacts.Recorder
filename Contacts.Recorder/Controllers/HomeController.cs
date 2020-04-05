@@ -30,17 +30,24 @@ namespace Contacts.Recorder.Controllers
            return View(new ContactViewModel() { Contacts= _repository.FetchAll() });
         }
 
+    
         [HttpPost]
-        public IActionResult Add(Contact contact)
-        {
-            _repository.Add(contact);
-            return Json(contact);
+        public IActionResult Save(Contact contact)
+        { 
+            var _contact=  _repository.Save(contact);
+            return Json(_contact);
         }
 
         [HttpGet]
         public IActionResult GetContacts()
         {
             return Json(_repository.FetchAll());
+        }
+
+        [HttpGet]
+        public IActionResult GetContact(string id)
+        {
+            return Json(_repository.FetchAll().FirstOrDefault(e=>e.Id== id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

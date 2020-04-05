@@ -9,7 +9,8 @@ namespace Contacts.Recorder.Storage
     public interface IRepository
     {
         IEnumerable<Contact> FetchAll();
-        void Add(Contact contact);
-
+        Contact Add(Contact contact);
+        Contact GetById(string id);
+        Contact Save(Contact contact);
     }
 }

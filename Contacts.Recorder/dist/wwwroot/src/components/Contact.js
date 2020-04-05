@@ -4,16 +4,7 @@ const React = require("react");
 const $ = require("jquery");
 const react_1 = require("react");
 require("./style.css");
-function Example1() {
-    // Declare a new state variable, which we'll call "count"
-    const [count, setCount] = react_1.useState(0);
-    return (React.createElement("div", null,
-        React.createElement("p", null,
-            "You clicked ",
-            count,
-            " times"),
-        React.createElement("button", { onClick: () => setCount(count + 1) }, "Click me")));
-}
+const FormPopup_1 = require("./FormPopup");
 function RetriveContact() {
     const [Contacts, setContact] = react_1.useState([]);
     react_1.useEffect(() => {
@@ -21,15 +12,39 @@ function RetriveContact() {
         getAllContacts();
     }, []);
     const getAllContacts = () => {
-        $.getJSON("Home/GetContacts", function (data) {
-            setContact(data);
+        $.getJSON("Home/GetContacts", function (contacts) {
+            setContact(contacts);
         });
     };
-    return (React.createElement("div", null, Contacts.map((contact) => React.createElement("div", { className: "grid-container" },
-        React.createElement("div", { className: "flex-item" }, contact.firstName),
-        React.createElement("div", { className: "flex-item" }, contact.lastName),
-        React.createElement("div", { className: "flex-item" }, contact.mobile),
-        React.createElement("div", { className: "flex-item" }, contact.home)))));
+    const save = (props) => {
+        $.post("Home/Save", Object.assign({}, props))
+            .done(function (data) {
+            setContact(oldArray => [...Contacts, data]);
+        });
+    };
+    const contact = {
+        firstName: "", home: "", lastName: "", mobile: ""
+    };
+    return (React.createElement("div", null,
+        React.createElement(FormPopup_1.ContactDialog, { save: save, contactDetail: contact }),
+        React.createElement("div", { className: "grid-container" },
+            React.createElement("div", null,
+                React.createElement("h5", null, "Contact Id")),
+            React.createElement("div", null,
+                React.createElement("h5", null, "First Name")),
+            React.createElement("div", null,
+                React.createElement("h5", null, "Last Name")),
+            React.createElement("div", null,
+                React.createElement("h5", null, "Mobile")),
+            React.createElement("div", null,
+                React.createElement("h5", null, "Home"))),
+        Contacts.map((contact) => React.createElement("div", { className: "grid-container" },
+            React.createElement("div", null,
+                React.createElement(FormPopup_1.ContactDialog, { save: save, contactDetail: contact })),
+            React.createElement("div", null, contact.firstName),
+            React.createElement("div", null, contact.lastName),
+            React.createElement("div", null, contact.mobile),
+            React.createElement("div", null, contact.home)))));
 }
 function Contact() {
     return (React.createElement("div", null,
