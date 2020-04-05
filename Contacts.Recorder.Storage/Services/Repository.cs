@@ -1,4 +1,6 @@
 ﻿using Contacts.Recorder.Core.Models;
+using Contacts.Recorder.MongoFramework;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,79 +11,57 @@ namespace Contacts.Recorder.Storage.Services
     public class Repository : IRepository
     {
         public IEnumerable<Contact> _contacts;
-        public Repository()
+        public IDbService _dbService;
+        private MongoClient _mongoClient;
+        private IMongoDatabase _mongoDatabase;
+        private IMongoCollection<Contact> _contactCollection;
+        public Repository(IDbService dbService)
         {
-            _contacts = FetchAll();
-
+            _dbService = dbService;
+            _mongoClient = _dbService.CreateMongoClient(Configuration.ConnectionString);
+            _mongoDatabase = _dbService.GetMongoDatabase(_mongoClient);
+            _contactCollection = _dbService.GetMongoCollection(_mongoDatabase);
         }
         public IEnumerable<Contact> FetchAll()
         {
-            yield return new Contact()
-            {
-                Id= "c5f925c6-8196-4a37-8e3a-e3a14bfd3415",
-                FirstName = "AJANTHAN",
-                Home = "0112638612",
-                LastName = "THURAIRATNAM",
-                Mobile = "0779648396"
-            };
-
-            yield return new Contact()
-            {
-                Id = "2d5a1eae-6577-4527-901d-fa75d2a598bc",
-                FirstName = "James",
-                Home = "0123456789",
-                LastName = "FRANKLIN",
-                Mobile = "077123456"
-            };
-
-            yield return new Contact()
-            {
-                Id = "98c85d5c-1782-4f53-992a-4d93c154fa27",
-                FirstName = "Steve",
-                Home = "023232323",
-                LastName = "Smith",
-                Mobile = "42525454"
-            };
-
+            return _contactCollection.Find(_ => true).ToList();
         }
         public Contact Add(Contact contact)
         {
             contact.Id = Guid.NewGuid().ToString();
-            var contacts = _contacts.ToList();
-            contacts.Add(contact);
-            _contacts = contacts;
+            contact.ContactId = contact.Id;
+            _contactCollection.InsertOne(contact);
+            _contacts = FetchAll();
             return contact;
         }
 
         public Contact GetById(string id)
         {
-            return _contacts.FirstOrDefault(e => e.Id == id);
+            return FetchAll().FirstOrDefault(e => e.Id == id);
         }
 
         public Contact Save(Contact contact)
         {
             if (!string.IsNullOrEmpty(contact.Id))
             {
-
                 var contacts = _contacts;
                 var _contact = GetById(contact.Id);
                 _contact.FirstName = contact.FirstName;
                 _contact.LastName = contact.LastName;
                 _contact.Mobile = contact.Mobile;
                 _contact.Home = contact.Home;
+       
+                var filter = Builders<Contact>.Filter.Eq("ContactId", contact.ContactId);
 
-                foreach (var con in contacts)
-                {
-                    if (con.Id == contact.Id)
-                    {
-                        con.FirstName = _contact.FirstName;
-                        con.LastName = _contact.LastName;
-                        con.Mobile = _contact.Mobile;
-                        con.Home = _contact.Home;
-                    }
-                }
+                var update = Builders<Contact>.Update
+                                              .Set("FirstName", contact.FirstName)
+                                              .Set("LastName", contact.LastName)
+                                              .Set("Mobile", contact.Mobile)
+                                              .Set("Home", contact.Home);
 
-                _contacts = contacts;
+                _contactCollection.UpdateOne(filter, update);
+
+                _contacts = FetchAll();
                 return _contact;
 
             }

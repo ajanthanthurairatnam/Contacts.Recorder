@@ -19,15 +19,14 @@ function RetriveContact() {
     const save = (props) => {
         $.post("Home/Save", Object.assign({}, props))
             .done(function (data) {
-            // if(props.id==null || props.id==""){
-            //   setContacts(oldArray => [...Contacts, data]);
-            // }
-            // else
-            // {
-            //   const index = Contacts.findIndex((f: IContact) => f.id === data.id);
-            //   setContacts([...Contacts.slice(0, index), data, ...Contacts.slice(index + 1)]);
-            // }
-            getAllContacts();
+            if (props.id == null || props.id == "") {
+                setContacts(oldArray => [...Contacts, data]);
+            }
+            else {
+                const index = Contacts.findIndex((f) => f.id === data.id);
+                setContacts([...Contacts.slice(0, index), data, ...Contacts.slice(index + 1)]);
+            }
+            //getAllContacts();
         });
     };
     const contact = {

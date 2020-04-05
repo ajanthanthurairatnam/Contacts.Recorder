@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contacts.Recorder.API.Services;
+using Contacts.Recorder.MongoFramework;
 using Contacts.Recorder.Storage;
 using Contacts.Recorder.Storage.Services;
 using Microsoft.AspNetCore.Builder;
@@ -25,7 +27,9 @@ namespace Contacts.Recorder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IRepository, Repository>();
+            services.AddSingleton<IConfigurationService, ConfigurationService>();
+            services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IDbService, DbService>();
             services.AddControllersWithViews();
         }
 
@@ -56,6 +60,12 @@ namespace Contacts.Recorder
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var consoleOutputService = app.ApplicationServices
+              .GetService<IConfigurationService>();
+
+
+        
         }
     }
 }
