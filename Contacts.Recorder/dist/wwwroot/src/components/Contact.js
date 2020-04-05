@@ -6,20 +6,29 @@ const react_1 = require("react");
 require("./style.css");
 const FormPopup_1 = require("./FormPopup");
 function RetriveContact() {
-    const [Contacts, setContact] = react_1.useState([]);
+    const [Contacts, setContacts] = react_1.useState([]);
     react_1.useEffect(() => {
         // Update the document title using the browser API
         getAllContacts();
     }, []);
     const getAllContacts = () => {
         $.getJSON("Home/GetContacts", function (contacts) {
-            setContact(contacts);
+            setContacts(contacts);
         });
     };
     const save = (props) => {
         $.post("Home/Save", Object.assign({}, props))
             .done(function (data) {
-            setContact(oldArray => [...Contacts, data]);
+            if (props.id == null || props.id == "") {
+                setContacts(oldArray => [...Contacts, data]);
+            }
+            else {
+                const index = Contacts.findIndex((f) => f.id === data.id);
+                setContacts([...Contacts.slice(0, index), data, ...Contacts.slice(index + 1)]);
+                console.log(Contacts);
+                alert("Set Log");
+            }
+            //getAllContacts();
         });
     };
     const contact = {

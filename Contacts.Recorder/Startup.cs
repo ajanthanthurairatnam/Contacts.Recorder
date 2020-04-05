@@ -25,7 +25,7 @@ namespace Contacts.Recorder
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IRepository, Repository>();
+            services.AddSingleton<IRepository, Repository>();
             services.AddControllersWithViews();
         }
 
