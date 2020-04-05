@@ -25,8 +25,6 @@ function RetriveContact() {
             else {
                 const index = Contacts.findIndex((f) => f.id === data.id);
                 setContacts([...Contacts.slice(0, index), data, ...Contacts.slice(index + 1)]);
-                console.log(Contacts);
-                alert("Set Log");
             }
             //getAllContacts();
         });

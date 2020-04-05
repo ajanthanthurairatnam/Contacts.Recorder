@@ -4115,7 +4115,7 @@ var myLibrary = function (e) { var t = {}; function n(r) { if (t[r])
             t(t => [...e, r]);
         else {
             const n = e.findIndex(e => e.id === r.id);
-            t([...e.slice(0, n), r, ...e.slice(n + 1)]), console.log(e), alert("Set Log");
+            t([...e.slice(0, n), r, ...e.slice(n + 1)]);
         } })); }; return r.createElement("div", null, r.createElement(a.ContactDialog, { save: l, contactDetail: { firstName: "", home: "", lastName: "", mobile: "" } }), r.createElement("div", { className: "grid-container" }, r.createElement("div", null, r.createElement("h5", null, "Contact Id")), r.createElement("div", null, r.createElement("h5", null, "First Name")), r.createElement("div", null, r.createElement("h5", null, "Last Name")), r.createElement("div", null, r.createElement("h5", null, "Mobile")), r.createElement("div", null, r.createElement("h5", null, "Home"))), e.map(e => r.createElement("div", { className: "grid-container" }, r.createElement("div", null, r.createElement(a.ContactDialog, { save: l, contactDetail: e })), r.createElement("div", null, e.firstName), r.createElement("div", null, e.lastName), r.createElement("div", null, e.mobile), r.createElement("div", null, e.home)))); }
         t.Contact = function () { return r.createElement("div", null, r.createElement(l, null)); };
     }, function (e, t, n) {
